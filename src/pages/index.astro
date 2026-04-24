@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -169,7 +168,7 @@ const posts = (await getCollection('blog')).sort(
 						<a href={`/blog/${post.id}/`}>
 							{post.data.heroImage && (
 								<div class="post-thumbnail">
-									<Image width={160} height={120} src={post.data.heroImage} alt="" />
+									<img src={post.data.heroImage} alt={post.data.title} />
 								</div>
 							)}
 							<div class="post-body">

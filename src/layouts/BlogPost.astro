@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
@@ -105,7 +104,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<article class="article-wrapper">
 				{heroImage && (
 					<div class="hero-image">
-						<Image width={780} height={390} src={heroImage} alt="" />
+						<img src={heroImage} alt={title} />
 					</div>
 				)}
 				<div class="article-meta">
