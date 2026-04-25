@@ -378,3 +378,122 @@ li {
 .prose strong {
 	background: linear-gradient(transparent 60%, #ffe68a 60%);
 }
+
+/* =====================
+   第2記事用 追加コンポーネント
+   ===================== */
+
+/* データ統計ボックス */
+.stat {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	background: #ffffff;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	margin: 2em 0;
+	overflow: hidden;
+}
+.stat-left {
+	background: var(--accent);
+	color: white;
+	padding: 1.5em 1.2em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-width: 120px;
+}
+.stat-num {
+	font-family: 'Noto Serif JP', serif;
+	font-size: 2.4em;
+	font-weight: 700;
+	line-height: 1;
+	margin-bottom: 0.2em;
+}
+.stat-unit { font-size: 0.7em; opacity: 0.85; letter-spacing: 0.08em; text-align: center; }
+.stat-right { padding: 1.4em 1.6em; }
+.stat-right .stat-title { font-size: 0.85em; font-weight: 700; margin-bottom: 0.5em; }
+.stat-right p { font-size: 0.82em; margin-bottom: 0; color: rgb(var(--gray)); line-height: 1.8; }
+@media (max-width: 600px) { .stat { grid-template-columns: 1fr; } .stat-left { min-width: unset; padding: 1em; } }
+
+/* ホルモン解説ボックス */
+.hormone-box {
+	background: var(--accent-light);
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	padding: 1.6em 1.8em;
+	margin: 2em 0;
+}
+.hormone-box .hb-title {
+	font-size: 0.72em;
+	letter-spacing: 0.18em;
+	color: rgb(var(--gray));
+	margin-bottom: 1.2em;
+	font-weight: 500;
+}
+.hormone-grid {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	gap: 1em;
+	align-items: center;
+	margin-bottom: 1.2em;
+}
+.hormone-card {
+	background: white;
+	border: 1px solid var(--border);
+	padding: 1em;
+	border-radius: 4px;
+	text-align: center;
+}
+.hormone-card.hunger { border-top: 3px solid #e05a2b; }
+.hormone-card.full { border-top: 3px solid #4a90a4; }
+.hormone-name { font-family: 'Noto Serif JP', serif; font-size: 1em; font-weight: 700; margin-bottom: 0.4em; }
+.hormone-name.h { color: #e05a2b; }
+.hormone-name.f { color: #4a90a4; }
+.hormone-desc { font-size: 0.78em; color: rgb(var(--gray)); line-height: 1.7; margin-bottom: 0; }
+.hormone-arrow { font-size: 1.4em; color: var(--border); text-align: center; }
+.hormone-box .note {
+	font-size: 0.82em;
+	color: rgb(var(--gray));
+	line-height: 1.8;
+	border-top: 1px dashed var(--border);
+	padding-top: 1em;
+	margin-bottom: 0;
+}
+@media (max-width: 600px) { .hormone-grid { grid-template-columns: 1fr; } .hormone-arrow { transform: rotate(90deg); } }
+
+/* 「悪いのはあなたじゃない」ボックス */
+.excuse {
+	background: linear-gradient(135deg, #fff8f4, #fdf3ec);
+	border: 1px solid #e8d5c4;
+	border-left: 5px solid var(--accent);
+	border-radius: 0 6px 6px 0;
+	padding: 1.6em 1.8em;
+	margin: 2em 0;
+}
+.excuse .ex-title {
+	font-family: 'Noto Serif JP', serif;
+	font-size: 1em;
+	font-weight: 700;
+	margin-bottom: 0.7em;
+	color: var(--accent);
+}
+.excuse p { font-size: 0.92em; margin-bottom: 0; line-height: 2; }
+
+/* 対策グリッド */
+.tips {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.9em;
+	margin: 2em 0;
+}
+.tip-card {
+	background: white;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	padding: 1.2em 1.3em;
+}
+.tip-icon { font-size: 1.4em; margin-bottom: 0.5em; }
+.tip-title { font-size: 0.88em; font-weight: 700; margin-bottom: 0.4em; }
+.tip-text { font-size: 0.82em; color: rgb(var(--gray)); line-height: 1.75; margin: 0; }
+@media (max-width: 600px) { .tips { grid-template-columns: 1fr; } }
