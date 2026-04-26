@@ -127,6 +127,30 @@ import { SITE_TITLE } from '../consts';
 				font-size: 0.82em;
 			}
 
+			/* ── SNSリンク ── */
+			.sns-links {
+				display: flex;
+				gap: 0.8em;
+				margin-top: 1em;
+				flex-wrap: wrap;
+			}
+			.sns-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				background: #000000;
+				color: #ffffff;
+				text-decoration: none;
+				padding: 0.4em 1em;
+				border-radius: 20px;
+				font-size: 0.82em;
+				font-weight: 500;
+				letter-spacing: 0.03em;
+				transition: opacity 0.2s;
+			}
+			.sns-link:hover { opacity: 0.8; text-decoration: none; }
+			.sns-link svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+
 			/* ── ポリシーボックス ── */
 			.policy-box {
 				background: #f8f5f0;
@@ -154,6 +178,12 @@ import { SITE_TITLE } from '../consts';
 				<div class="profile-body">
 					<p class="profile-name">からたよ</p>
 					<span class="profile-role">生理人類学ライター</span>
+					<div class="sns-links">
+						<a class="sns-link" href="https://x.com/kimurayamada621" target="_blank" rel="noopener noreferrer">
+							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+							@kimurayamada621
+						</a>
+					</div>
 					<p class="profile-text">
 						専門家ではありません。ただ、「人間ってどういう生き物なんだろう」という好奇心が止まらない一般人です。<br>
 						生理人類学の書籍・論文を読み漁り、「これは面白い、もっと多くの人に知ってほしい」と思ったことをこのブログにまとめています。<br>
