@@ -1,0 +1,25 @@
+name: SNS投稿ドラフト作成
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/**/*.mdx'
+
+jobs:
+  create-tweet-draft:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 新しい記事を検出してIssueを作成
+        run: python3 .github/scripts/create_tweet_draft.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
