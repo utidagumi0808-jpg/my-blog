@@ -613,3 +613,115 @@ li {
 	justify-content: center;
 	margin-top: 2px;
 }
+
+/* ===== フローチャート（チャンネル図）===== */
+.flow-chart {
+	background: #ffffff;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 1.8em;
+	margin: 2em 0;
+	text-align: center;
+}
+.flow-chart-title {
+	font-size: 0.82em;
+	color: rgb(var(--gray));
+	letter-spacing: 0.06em;
+	margin-bottom: 1.2em;
+}
+.chart-area {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 8px;
+	max-width: 420px;
+	margin: 0 auto;
+}
+.chart-cell {
+	padding: 14px 10px;
+	border-radius: 8px;
+	font-size: 0.82em;
+	font-weight: 500;
+	line-height: 1.4;
+}
+.cell-flow {
+	background: var(--accent);
+	color: #fff;
+	font-size: 0.95em;
+	font-weight: 700;
+}
+.cell-anxiety { background: #ffe0e0; color: #c0392b; }
+.cell-boring  { background: #e8e8e8; color: #888; }
+.cell-label {
+	background: transparent;
+	color: rgb(var(--gray));
+	font-size: 0.75em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.chart-axis {
+	display: flex;
+	justify-content: space-between;
+	max-width: 420px;
+	margin: 8px auto 0;
+	font-size: 0.72em;
+	color: rgb(var(--gray));
+}
+
+/* ===== 条件リスト ===== */
+.condition-list { list-style: none; padding: 0; margin: 1.5em 0; }
+.condition-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 1em;
+	padding: 1.1em 0;
+	border-bottom: 1px solid var(--border);
+}
+.condition-item:last-child { border-bottom: none; }
+.cond-num {
+	background: var(--accent);
+	color: #fff;
+	width: 32px; height: 32px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.88em;
+	font-weight: 700;
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+.cond-body h4 {
+	font-size: 0.95em;
+	font-weight: 700;
+	margin-bottom: 0.25em;
+	color: rgb(var(--black));
+}
+.cond-body p {
+	font-size: 0.88em;
+	color: rgb(var(--gray));
+	margin: 0;
+	line-height: 1.7;
+}
+
+/* ===== グリーンボックス ===== */
+.green-box {
+	background: #f0faf5;
+	border: 1.5px solid #2e9c6a;
+	border-radius: 10px;
+	padding: 1.3em 1.5em;
+	margin: 1.8em 0;
+}
+.green-box .label {
+	font-size: 0.72em;
+	font-weight: 700;
+	color: #2e9c6a;
+	letter-spacing: 0.15em;
+	margin-bottom: 0.5em;
+}
+.green-box p {
+	font-size: 0.93em;
+	line-height: 1.85;
+	color: rgb(var(--gray-dark));
+	margin: 0;
+}
