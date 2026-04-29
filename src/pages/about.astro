@@ -1,5 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
@@ -8,44 +10,233 @@ import { SITE_TITLE } from '../consts';
 	<head>
 		<BaseHead title={`このブログについて | ${SITE_TITLE}`} description="ヒトのトリセツの管理人プロフィールとブログについての説明ページです。" />
 		<style>
-			body { background: #ffffff; color: #000000; font-family: sans-serif; font-size: 14px; margin: 0; padding: 0; }
-			div { width: 580px; margin: 0 auto; padding: 20px; }
-			img { display: block; margin: 10px 0; }
-			hr { border: none; border-top: 1px solid #000; margin: 10px 0; }
-			a { color: #0000ff; }
+			main {
+				max-width: 720px;
+				margin: 0 auto;
+				padding: 3em 1.5em 5em;
+			}
+			.page-title {
+				font-family: 'Noto Serif JP', serif;
+				font-size: 1.4em;
+				font-weight: 700;
+				color: rgb(var(--black));
+				margin-bottom: 1.8em;
+				padding-bottom: 0.6em;
+				border-bottom: 3px solid var(--accent);
+			}
+
+			/* ── プロフィールカード ── */
+			.profile-card {
+				background: #ffffff;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 2em 2.2em;
+				box-shadow: var(--box-shadow);
+				margin-bottom: 2.2em;
+				display: flex;
+				gap: 2em;
+				align-items: flex-start;
+			}
+			@media (max-width: 560px) {
+				.profile-card { flex-direction: column; align-items: center; text-align: center; }
+			}
+			.profile-avatar {
+				flex-shrink: 0;
+				width: 110px;
+				height: 110px;
+				border-radius: 50%;
+				overflow: hidden;
+				border: 3px solid var(--accent);
+			}
+			.profile-avatar img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.profile-body {
+				flex: 1;
+			}
+			.profile-name {
+				font-family: 'Noto Serif JP', serif;
+				font-size: 1.15em;
+				font-weight: 700;
+				color: rgb(var(--black));
+				margin-bottom: 0.3em;
+			}
+			.profile-role {
+				display: inline-block;
+				background: var(--accent);
+				color: white;
+				font-size: 0.72em;
+				letter-spacing: 0.1em;
+				padding: 0.25em 0.75em;
+				border-radius: 3px;
+				margin-bottom: 0.9em;
+			}
+			.profile-text {
+				font-size: 0.92em;
+				line-height: 2;
+				color: rgb(var(--gray-dark));
+				margin: 0;
+			}
+
+			/* ── セクション共通 ── */
+			.about-section {
+				background: #ffffff;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				padding: 1.8em 2.2em;
+				box-shadow: var(--box-shadow);
+				margin-bottom: 1.6em;
+			}
+			.about-section h2 {
+				font-family: 'Noto Serif JP', serif;
+				font-size: 1.05em;
+				font-weight: 700;
+				padding: 0.4em 0.8em;
+				border-left: 4px solid var(--accent);
+				background: var(--accent-light);
+				margin-bottom: 1.1em;
+				margin-top: 0;
+			}
+			.about-section p {
+				font-size: 0.93em;
+				line-height: 2;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 0.9em;
+			}
+			.about-section p:last-child {
+				margin-bottom: 0;
+			}
+
+			/* ── テーマタグ ── */
+			.theme-list {
+				list-style: none;
+				padding: 0;
+				margin: 0.8em 0 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6em;
+			}
+			.theme-list li {
+				background: var(--accent-light);
+				border: 1px solid var(--accent);
+				color: var(--accent-dark);
+				padding: 0.3em 0.9em;
+				border-radius: 20px;
+				font-size: 0.82em;
+			}
+
+			/* ── SNSリンク ── */
+			.sns-links {
+				display: flex;
+				gap: 0.8em;
+				margin-top: 1em;
+				flex-wrap: wrap;
+			}
+			.sns-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				background: #000000;
+				color: #ffffff;
+				text-decoration: none;
+				padding: 0.4em 1em;
+				border-radius: 20px;
+				font-size: 0.82em;
+				font-weight: 500;
+				letter-spacing: 0.03em;
+				transition: opacity 0.2s;
+			}
+			.sns-link:hover { opacity: 0.8; text-decoration: none; }
+			.sns-link svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+
+			/* ── ポリシーボックス ── */
+			.policy-box {
+				background: #f8f5f0;
+				border: 1px solid var(--border);
+				border-left: 4px solid #888;
+				border-radius: 4px;
+				padding: 1.2em 1.5em;
+				margin-top: 1em;
+				font-size: 0.85em;
+				line-height: 1.85;
+				color: rgb(var(--gray));
+			}
 		</style>
 	</head>
 	<body>
-		<div>
-			<p><b>ヒトのトリセツ</b></p>
-			<hr />
-			<img src="/profile.png" width="80" height="80" alt="からたよ" />
-			<p><b>からたよ</b></p>
-			<p>生理人類学・進化生物学ライター</p>
-			<hr />
-			<p><b>このブログについて</b></p>
-			<p>
-				専門家ではありません。ただ、「人間ってどういう生き物なんだろう」という好奇心が止まらない一般人です。<br />
-				生理人類学の書籍・論文を読み漁り、「これは面白い、もっと多くの人に知ってほしい」と思ったことをこのブログにまとめています。<br />
-				学術的な正確さと、誰でも読める読みやすさを両立することが目標です。
-			</p>
-			<hr />
-			<p><b>ブログのテーマ</b></p>
-			<p>
-				睡眠・体内時計 / 食と代謝 / ストレスと自律神経 / 体温調節 / 進化と人体の設計 / 生理人類学
-			</p>
-			<hr />
-			<p><b>記事を書くときに大切にしていること</b></p>
-			<p>
-				「科学的に確度の高い情報のみ」を扱うことを方針にしています。<br />
-				記事の末尾には必ず参考文献を掲載しており、論文・政府機関・学術出版物に基づいた内容のみを記載しています。
-			</p>
-			<p>※本ブログは医療・診断・治療を目的としたものではありません。</p>
-			<hr />
-			<p><b>連絡先</b></p>
-			<p><a href="https://x.com/kimurayamada621" target="_blank" rel="noopener noreferrer">X（旧Twitter）@kimurayamada621</a></p>
-			<hr />
-			<p><a href="/">← 記事一覧に戻る</a></p>
-		</div>
+		<Header />
+		<main>
+			<h1 class="page-title">このブログについて</h1>
+
+			<!-- プロフィール -->
+			<div class="profile-card">
+				<div class="profile-avatar">
+					<img src="/profile.png" alt="管理人アバター" />
+				</div>
+				<div class="profile-body">
+					<p class="profile-name">からたよ</p>
+					<span class="profile-role">生理人類学・進化生物学ライター</span>
+					<div class="sns-links">
+						<a class="sns-link" href="https://x.com/kimurayamada621" target="_blank" rel="noopener noreferrer">
+							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+							@kimurayamada621
+						</a>
+					</div>
+					<p class="profile-text">
+						専門家ではありません。ただ、「人間ってどういう生き物なんだろう」という好奇心が止まらない一般人です。<br>
+						生理人類学の書籍・論文を読み漁り、「これは面白い、もっと多くの人に知ってほしい」と思ったことをこのブログにまとめています。<br>
+						学術的な正確さと、誰でも読める読みやすさを両立することが目標です。
+					</p>
+				</div>
+			</div>
+
+			<!-- このブログを始めた理由 -->
+			<div class="about-section">
+				<h2>このブログを始めた理由</h2>
+				<p>
+					「なんで夜更かしすると体がしんどくなるの？」「なんで甘いものが止まらないの？」——そういう素朴な疑問を調べていくうちに、<strong>生理人類学</strong>という分野に行き着きました。
+				</p>
+				<p>
+					生理人類学は、700万年の人類進化の歴史から「なぜ体がそう動くのか」を解き明かす学問です。調べれば調べるほど、「これって、自分を責める必要がなかったんだ」という発見の連続で。
+				</p>
+				<p>
+					その発見を、できるだけわかりやすく・正確に届けたい。それがこのブログを始めた理由です。
+				</p>
+			</div>
+
+			<!-- ブログのテーマ -->
+			<div class="about-section">
+				<h2>ブログのテーマ</h2>
+				<p>
+					「ヒトのトリセツ」は、生理人類学・進化生物学の視点から人体の仕組みと行動をわかりやすく解説するブログです。<br>
+					睡眠・食・ストレス・体温調節・進化と体の設計など、あなたの体が「なぜそう動くのか」を、学術的な正確さを大切にしながらお届けします。
+				</p>
+				<ul class="theme-list">
+					<li>睡眠・体内時計</li>
+					<li>食と代謝</li>
+					<li>ストレスと自律神経</li>
+					<li>体温調節</li>
+					<li>進化と人体の設計</li>
+					<li>生理人類学</li>
+				</ul>
+			</div>
+
+			<!-- 記事の方針 -->
+			<div class="about-section">
+				<h2>記事を書くときに大切にしていること</h2>
+				<p>
+					このブログは「科学的に確度の高い情報のみ」を扱うことを方針にしています。記事の末尾には必ず参考文献を掲載しており、論文・政府機関・学術出版物に基づいた内容のみを記載しています。
+				</p>
+				<p>
+					また、難しい概念を「わかりやすく」噛み砕くことにこだわっています。「学術的に正確だけど読めない記事」より、「少し平易でも、最後まで読んでもらえる記事」の方が価値があると考えています。
+				</p>
+				<div class="policy-box">
+					本ブログは医療・診断・治療を目的としたものではありません。健康上の問題については、必ず専門の医療機関にご相談ください。
+				</div>
+			</div>
+		</main>
+		<Footer />
 	</body>
 </html>
