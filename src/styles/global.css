@@ -218,12 +218,13 @@ li {
 	max-width: 85%;
 }
 .voice-reader::before {
-	content: "読者";
-	font-size: 0.7em;
-	font-weight: 700;
-	color: var(--accent);
+	content: "";
 	display: block;
-	margin-bottom: 4px;
+	width: 28px;
+	height: 28px;
+	background: url('/reader-avatar.png') center / cover no-repeat;
+	border-radius: 50%;
+	margin-bottom: 6px;
 }
 .voice-author {
 	background: #fff;
