@@ -48,11 +48,20 @@ const posts = (await getCollection('blog')).sort(
 				text-decoration: none;
 				transition: opacity 0.2s;
 			}
-			.hero-btn:hover {
-				opacity: 0.85;
-				text-decoration: none;
-				color: #1a3a2a;
+			.hero-btn:hover { opacity: 0.85; text-decoration: none; color: #1a3a2a; }
+
+			/* ── 2カラムレイアウト ── */
+			.home-layout {
+				max-width: 1060px;
+				margin: 0 auto;
+				padding: 0 1em 4em;
+				display: grid;
+				grid-template-columns: 1fr 260px;
+				gap: 2.4em;
+				align-items: start;
 			}
+
+			/* ── メインエリア ── */
 			.section-title {
 				font-family: 'Noto Serif JP', serif;
 				font-size: 1.2em;
@@ -65,17 +74,13 @@ const posts = (await getCollection('blog')).sort(
 				align-items: center;
 				justify-content: space-between;
 			}
-			.section-title a {
-				font-size: 0.75em;
-				font-weight: 400;
-				color: var(--accent);
-			}
+			.section-title a { font-size: 0.75em; font-weight: 400; color: var(--accent); }
 			.post-grid {
 				list-style: none;
 				margin: 0;
 				padding: 0;
 				display: grid;
-				grid-template-columns: repeat(3, 1fr);
+				grid-template-columns: repeat(2, 1fr);
 				gap: 1.4em;
 			}
 			.post-card {
@@ -111,9 +116,7 @@ const posts = (await getCollection('blog')).sort(
 				display: block;
 				transition: transform 0.35s;
 			}
-			.post-card:hover .post-thumbnail img {
-				transform: scale(1.06);
-			}
+			.post-card:hover .post-thumbnail img { transform: scale(1.06); }
 			.post-thumbnail-placeholder {
 				width: 100%;
 				height: 100%;
@@ -122,7 +125,6 @@ const posts = (await getCollection('blog')).sort(
 				justify-content: center;
 				font-size: 2.5em;
 				color: var(--accent);
-				background: var(--accent-light);
 			}
 			.post-body {
 				padding: 1em 1.1em 1.2em;
@@ -131,11 +133,7 @@ const posts = (await getCollection('blog')).sort(
 				gap: 0.4em;
 				flex: 1;
 			}
-			.post-date {
-				font-size: 0.75em;
-				color: rgb(var(--gray));
-				margin: 0;
-			}
+			.post-date { font-size: 0.75em; color: rgb(var(--gray)); margin: 0; }
 			.post-title {
 				font-family: 'Noto Serif JP', serif;
 				font-size: 0.95em;
@@ -144,9 +142,7 @@ const posts = (await getCollection('blog')).sort(
 				line-height: 1.55;
 				margin: 0;
 			}
-			.post-card:hover .post-title {
-				color: var(--accent);
-			}
+			.post-card:hover .post-title { color: var(--accent); }
 			.post-desc {
 				font-size: 0.8em;
 				color: rgb(var(--gray));
@@ -165,12 +161,84 @@ const posts = (await getCollection('blog')).sort(
 				color: var(--accent);
 				font-weight: 700;
 			}
-			@media (max-width: 700px) {
-				.hero-title { font-size: 1.5em; }
-				.post-grid { grid-template-columns: repeat(2, 1fr); }
+
+			/* ── サイドバー ── */
+			.sidebar {
+				position: sticky;
+				top: 80px;
+				display: flex;
+				flex-direction: column;
+				gap: 1.4em;
+			}
+			.sidebar-widget {
+				background: #ffffff;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				overflow: hidden;
+				box-shadow: var(--box-shadow);
+			}
+			.widget-title {
+				background: var(--accent);
+				color: white;
+				font-family: 'Noto Serif JP', serif;
+				font-size: 0.88em;
+				font-weight: 700;
+				padding: 0.65em 1em;
+				margin: 0;
+				letter-spacing: 0.05em;
+			}
+			.profile-widget {
+				padding: 1.2em 1em;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				gap: 0.5em;
+			}
+			.profile-widget img {
+				width: 72px;
+				height: 72px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 2px solid var(--accent);
+			}
+			.profile-widget-name { font-weight: 700; font-size: 0.92em; color: rgb(var(--black)); }
+			.profile-widget-role {
+				display: inline-block;
+				background: var(--accent);
+				color: white;
+				font-size: 0.7em;
+				padding: 0.2em 0.7em;
+				border-radius: 3px;
+			}
+			.profile-widget-text {
+				font-size: 0.78em;
+				color: rgb(var(--gray));
+				line-height: 1.7;
+				margin: 0;
+			}
+			.profile-widget-link {
+				font-size: 0.78em;
+				color: var(--accent);
+				text-decoration: none;
+			}
+			.profile-widget-link:hover { text-decoration: underline; }
+
+			.about-widget { padding: 1em; }
+			.about-widget p {
+				font-size: 0.82em;
+				color: rgb(var(--gray));
+				line-height: 1.8;
+				margin: 0;
+			}
+
+			@media (max-width: 780px) {
+				.home-layout { grid-template-columns: 1fr; }
+				.sidebar { position: static; }
 			}
 			@media (max-width: 480px) {
 				.post-grid { grid-template-columns: 1fr; }
+				.hero-title { font-size: 1.5em; }
 			}
 		</style>
 	</head>
@@ -184,34 +252,55 @@ const posts = (await getCollection('blog')).sort(
 			</p>
 			<a href="/blog" class="hero-btn">記事を読む →</a>
 		</div>
-		<main>
-			<h2 class="section-title">
-				最新記事
-				<a href="/blog">すべて見る →</a>
-			</h2>
-			<ul class="post-grid">
-				{posts.map((post) => (
-					<li class="post-card">
-						<a href={`/blog/${post.id}/`}>
-							<div class="post-thumbnail">
-								{post.data.heroImage
-									? <img src={post.data.heroImage} alt={post.data.title} />
-									: <div class="post-thumbnail-placeholder">🧬</div>
-								}
-							</div>
-							<div class="post-body">
-								<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
-								<h3 class="post-title">{post.data.title}</h3>
-								{post.data.description && (
-									<p class="post-desc">{post.data.description}</p>
-								)}
-								<span class="read-more">続きを読む →</span>
-							</div>
-						</a>
-					</li>
-				))}
-			</ul>
-		</main>
+		<div class="home-layout">
+			<main>
+				<h2 class="section-title">
+					最新記事
+					<a href="/blog">すべて見る →</a>
+				</h2>
+				<ul class="post-grid">
+					{posts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								<div class="post-thumbnail">
+									{post.data.heroImage
+										? <img src={post.data.heroImage} alt={post.data.title} />
+										: <div class="post-thumbnail-placeholder">🧬</div>
+									}
+								</div>
+								<div class="post-body">
+									<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
+									<h3 class="post-title">{post.data.title}</h3>
+									{post.data.description && (
+										<p class="post-desc">{post.data.description}</p>
+									)}
+									<span class="read-more">続きを読む →</span>
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			</main>
+
+			<aside class="sidebar">
+				<div class="sidebar-widget">
+					<h2 class="widget-title">管理人について</h2>
+					<div class="profile-widget">
+						<img src="/profile.png" alt="からたよ" />
+						<p class="profile-widget-name">からたよ</p>
+						<span class="profile-widget-role">生理人類学・進化生物学ライター</span>
+						<p class="profile-widget-text">「人間ってどういう生き物なんだろう」という好奇心が止まらない一般人です。</p>
+						<a class="profile-widget-link" href="/about">もっと読む →</a>
+					</div>
+				</div>
+				<div class="sidebar-widget">
+					<h2 class="widget-title">このブログについて</h2>
+					<div class="about-widget">
+						<p>生理人類学・進化生物学の視点から、睡眠・食・ストレス・体温調節など「体の仕組み」をわかりやすく解説します。すべての記事に参考文献を掲載しています。</p>
+					</div>
+				</div>
+			</aside>
+		</div>
 		<Footer />
 	</body>
 </html>
