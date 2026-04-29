@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -8,17 +9,26 @@ import Header from '../components/Header.astro';
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const recentPosts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
 ---
 
 <html lang="ja">
 	<head>
 		<BaseHead title={`${title} | ヒトのトリセツ`} description={description} image={heroImage || undefined} />
 		<style>
-			.article-wrapper {
-				max-width: 780px;
+			.page-layout {
+				max-width: 1060px;
 				margin: 0 auto;
-				padding: 2em 1em;
+				padding: 2em 1em 4em;
+				display: grid;
+				grid-template-columns: 1fr 260px;
+				gap: 2.4em;
+				align-items: start;
 			}
+			/* ── メイン記事エリア ── */
 			.hero-image {
 				border-radius: 8px;
 				overflow: hidden;
@@ -44,10 +54,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				align-items: center;
 				gap: 0.3em;
 			}
-			.article-date::before {
-				content: "📅";
-				font-size: 0.9em;
-			}
+			.article-date::before { content: "📅"; font-size: 0.9em; }
 			.last-updated {
 				font-size: 0.82em;
 				color: rgb(var(--gray));
@@ -76,9 +83,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				border-top: 1px solid var(--border);
 				margin: 1.5em 0 2em;
 			}
-			.prose {
-				color: rgb(var(--gray-dark));
-			}
+			.prose { color: rgb(var(--gray-dark)); }
 			.back-link {
 				display: inline-flex;
 				align-items: center;
@@ -96,12 +101,125 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				color: white;
 				text-decoration: none;
 			}
+
+			/* ── サイドバー ── */
+			.sidebar {
+				position: sticky;
+				top: 80px;
+				display: flex;
+				flex-direction: column;
+				gap: 1.4em;
+			}
+			.sidebar-widget {
+				background: #ffffff;
+				border: 1px solid var(--border);
+				border-radius: 10px;
+				overflow: hidden;
+				box-shadow: var(--box-shadow);
+			}
+			.widget-title {
+				background: var(--accent);
+				color: white;
+				font-family: 'Noto Serif JP', serif;
+				font-size: 0.88em;
+				font-weight: 700;
+				padding: 0.65em 1em;
+				margin: 0;
+				letter-spacing: 0.05em;
+			}
+			.recent-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.recent-item {
+				border-bottom: 1px solid var(--border);
+			}
+			.recent-item:last-child { border-bottom: none; }
+			.recent-item a {
+				display: flex;
+				gap: 0.7em;
+				padding: 0.75em 0.9em;
+				text-decoration: none;
+				color: inherit;
+				align-items: center;
+				transition: background 0.15s;
+			}
+			.recent-item a:hover { background: var(--accent-light); }
+			.recent-thumb {
+				width: 52px;
+				height: 40px;
+				border-radius: 4px;
+				overflow: hidden;
+				flex-shrink: 0;
+				background: var(--accent-light);
+			}
+			.recent-thumb img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				border-radius: 0;
+			}
+			.recent-body { flex: 1; min-width: 0; }
+			.recent-title {
+				font-size: 0.78em;
+				font-weight: 700;
+				color: rgb(var(--black));
+				line-height: 1.45;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				margin-bottom: 2px;
+			}
+			.recent-date {
+				font-size: 0.7em;
+				color: rgb(var(--gray));
+			}
+
+			/* プロフィールウィジェット */
+			.profile-widget {
+				padding: 1.2em 1em;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				gap: 0.5em;
+			}
+			.profile-widget img {
+				width: 64px;
+				height: 64px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 2px solid var(--accent);
+			}
+			.profile-widget-name {
+				font-weight: 700;
+				font-size: 0.9em;
+				color: rgb(var(--black));
+			}
+			.profile-widget-text {
+				font-size: 0.78em;
+				color: rgb(var(--gray));
+				line-height: 1.7;
+				margin: 0;
+			}
+
+			@media (max-width: 780px) {
+				.page-layout {
+					grid-template-columns: 1fr;
+				}
+				.sidebar {
+					position: static;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<article class="article-wrapper">
+		<div class="page-layout">
+			<article>
 				{heroImage && (
 					<div class="hero-image">
 						<img src={heroImage} alt={title} />
@@ -127,7 +245,42 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 				<a href="/blog" class="back-link">← 記事一覧に戻る</a>
 			</article>
-		</main>
+
+			<aside class="sidebar">
+				<!-- プロフィール -->
+				<div class="sidebar-widget">
+					<h2 class="widget-title">このブログについて</h2>
+					<div class="profile-widget">
+						<img src="/profile.png" alt="からたよ" />
+						<p class="profile-widget-name">からたよ</p>
+						<p class="profile-widget-text">生理人類学・進化生物学の視点から人体の仕組みをわかりやすく解説します。</p>
+					</div>
+				</div>
+
+				<!-- 最新記事 -->
+				<div class="sidebar-widget">
+					<h2 class="widget-title">最新記事</h2>
+					<ul class="recent-list">
+						{recentPosts.map((post) => (
+							<li class="recent-item">
+								<a href={`/blog/${post.id}/`}>
+									<div class="recent-thumb">
+										{post.data.heroImage
+											? <img src={post.data.heroImage} alt={post.data.title} />
+											: <span style="display:flex;align-items:center;justify-content:center;height:100%;font-size:1.2em;">🧬</span>
+										}
+									</div>
+									<div class="recent-body">
+										<p class="recent-title">{post.data.title}</p>
+										<p class="recent-date"><FormattedDate date={post.data.pubDate} /></p>
+									</div>
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			</aside>
+		</div>
 		<Footer />
 	</body>
 </html>
