@@ -170,24 +170,3 @@ heroImage: '/blog-placeholder-1.jpg'
 3. Güth, W., Schmittberger, R., & Schwarze, B. (1982). An experimental analysis of ultimatum bargaining. *Journal of Economic Behavior & Organization*, 3(4), 367–388.
 4. 安河内朗・岩永光一（編著）（2020）『生理人類学——人の理解と日常の課題発見のために——』理工図書.
 
-<script>
-  document.querySelectorAll('#fairness-checklist .chk').forEach(chk => {
-    chk.style.cursor = 'pointer';
-    chk.addEventListener('click', function() {
-      const checked = this.getAttribute('data-checked') === 'true';
-      if (checked) {
-        this.setAttribute('data-checked', 'false');
-        this.style.background = 'rgba(168,216,185,0.15)';
-        this.style.color = '#a8d8b9';
-        this.nextElementSibling.style.textDecoration = 'none';
-        this.nextElementSibling.style.opacity = '1';
-      } else {
-        this.setAttribute('data-checked', 'true');
-        this.style.background = '#a8d8b9';
-        this.style.color = '#1a3d2e';
-        this.nextElementSibling.style.textDecoration = 'line-through';
-        this.nextElementSibling.style.opacity = '0.5';
-      }
-    });
-  });
-</script>
