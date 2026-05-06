@@ -218,12 +218,10 @@ li {
 	max-width: 85%;
 }
 .voice-reader::before {
-	content: "";
+	content: "🙋";
 	display: block;
-	width: 28px;
-	height: 28px;
-	background: url('/reader-avatar.png') center / cover no-repeat;
-	border-radius: 50%;
+	font-size: 22px;
+	line-height: 1;
 	margin-bottom: 6px;
 }
 .voice-author {
@@ -236,12 +234,10 @@ li {
 	max-width: 85%;
 }
 .voice-author::before {
-	content: "";
+	content: "🧑‍🔬";
 	display: block;
-	width: 28px;
-	height: 28px;
-	background: url('/profile.png') center / cover no-repeat;
-	border-radius: 50%;
+	font-size: 22px;
+	line-height: 1;
 	margin-bottom: 6px;
 }
 
