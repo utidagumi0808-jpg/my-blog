@@ -232,6 +232,15 @@ const posts = (await getCollection('blog')).sort(
 				margin: 0;
 			}
 
+			/* グリッド内のmainはグローバルCSSのwidth設定を上書き */
+			.home-layout > main {
+				width: 100%;
+				max-width: 100%;
+				min-width: 0;
+				padding: 0;
+				margin: 0;
+			}
+
 			@media (max-width: 780px) {
 				.home-layout { grid-template-columns: 1fr; }
 				.sidebar { position: static; }
