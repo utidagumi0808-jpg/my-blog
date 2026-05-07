@@ -74,8 +74,28 @@ import HeaderLink from './HeaderLink.astro';
 		color: #ffffff;
 		text-decoration: none;
 	}
-	@media (max-width: 600px) {
+	@media (max-width: 720px) {
+		.header-inner {
+			flex-direction: column;
+			align-items: center;
+			padding: 0.5em 0;
+			gap: 0.3em;
+		}
+		.logo a {
+			align-items: center;
+		}
 		.logo-sub { display: none; }
-		nav :global(a) { padding: 0.4em 0.5em; font-size: 0.82em; }
+		.logo-main { font-size: 1.15em; }
+		nav {
+			width: 100%;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 0.15em;
+		}
+		nav :global(a) {
+			padding: 0.3em 0.55em;
+			font-size: 0.8em;
+			white-space: nowrap;
+		}
 	}
 </style>
