@@ -11,6 +11,11 @@ import HeaderLink from './HeaderLink.astro';
 				<span class="logo-sub">生理人類学で読み解く、あなたの体の設計図</span>
 			</a>
 		</div>
+		<button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 		<nav>
 			<HeaderLink href="/">ホーム</HeaderLink>
 			<HeaderLink href="/blog">記事一覧</HeaderLink>
@@ -19,6 +24,28 @@ import HeaderLink from './HeaderLink.astro';
 		</nav>
 	</div>
 </header>
+
+<script>
+	const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
+	const nav = document.querySelector('header nav') as HTMLElement;
+	if (toggle && nav) {
+		toggle.addEventListener('click', () => {
+			const isOpen = nav.classList.toggle('is-open');
+			toggle.classList.toggle('is-open');
+			toggle.setAttribute('aria-expanded', String(isOpen));
+			toggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+		});
+		// ナビリンクをクリックしたら閉じる
+		nav.querySelectorAll('a').forEach(link => {
+			link.addEventListener('click', () => {
+				nav.classList.remove('is-open');
+				toggle.classList.remove('is-open');
+				toggle.setAttribute('aria-expanded', 'false');
+				toggle.setAttribute('aria-label', 'メニューを開く');
+			});
+		});
+	}
+</script>
 
 <style>
 	header {
@@ -67,6 +94,7 @@ import HeaderLink from './HeaderLink.astro';
 		font-size: 0.88em;
 		text-decoration: none;
 		transition: background 0.2s, color 0.2s;
+		white-space: nowrap;
 	}
 	nav :global(a:hover),
 	nav :global(a.active) {
@@ -74,28 +102,78 @@ import HeaderLink from './HeaderLink.astro';
 		color: #ffffff;
 		text-decoration: none;
 	}
+
+	/* ハンバーガーボタン：デスクトップでは非表示 */
+	.nav-toggle {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		gap: 5px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 6px 4px;
+		flex-shrink: 0;
+	}
+	.nav-toggle span {
+		display: block;
+		width: 24px;
+		height: 2px;
+		background: white;
+		border-radius: 2px;
+		transition: transform 0.25s, opacity 0.25s;
+	}
+	.nav-toggle.is-open span:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+	.nav-toggle.is-open span:nth-child(2) {
+		opacity: 0;
+	}
+	.nav-toggle.is-open span:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
+	/* モバイル */
 	@media (max-width: 720px) {
-		.header-inner {
-			flex-direction: column;
-			align-items: center;
-			padding: 0.5em 0;
-			gap: 0.3em;
+		header {
+			padding: 0 1em;
 		}
-		.logo a {
+		.header-inner {
+			flex-direction: row;
 			align-items: center;
+			padding: 0.65em 0;
+			gap: 0.5em;
 		}
 		.logo-sub { display: none; }
-		.logo-main { font-size: 1.15em; }
+		.logo-main { font-size: 1.1em; }
+
+		.nav-toggle { display: flex; }
+
 		nav {
-			width: 100%;
-			flex-wrap: wrap;
-			justify-content: center;
-			gap: 0.15em;
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			background: #1a3a2a;
+			flex-direction: column;
+			padding: 0.4em 1em 0.8em;
+			box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+			z-index: 99;
+			gap: 0;
+		}
+		nav.is-open {
+			display: flex;
 		}
 		nav :global(a) {
-			padding: 0.3em 0.55em;
-			font-size: 0.8em;
-			white-space: nowrap;
+			padding: 0.75em 0.5em;
+			font-size: 0.95em;
+			border-bottom: 1px solid rgba(255,255,255,0.1);
+			border-radius: 0;
+			width: 100%;
+		}
+		nav :global(a:last-child) {
+			border-bottom: none;
 		}
 	}
 </style>

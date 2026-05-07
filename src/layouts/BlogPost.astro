@@ -74,6 +74,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 1.5em 0 2em;
 			}
 			.prose { color: rgb(var(--gray-dark)); }
+			@media (max-width: 600px) {
+				.article-wrapper { padding: 1.2em 0.8em; }
+				.article-title { font-size: 1.25em; }
+				.article-desc { font-size: 0.88em; }
+			}
 			.back-link {
 				display: inline-flex;
 				align-items: center;
