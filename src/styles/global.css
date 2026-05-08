@@ -841,3 +841,189 @@ li {
 	color: rgb(var(--gray-dark));
 	margin: 0;
 }
+
+/* =====================
+   AI記事 追加コンポーネント
+   ===================== */
+
+/* 悩み・学習・解説ボックス共通 */
+.box {
+	border-radius: 16px;
+	padding: 24px 28px;
+	margin: 32px 0;
+}
+.box-title {
+	font-size: 16px;
+	font-weight: 800;
+	margin-bottom: 12px;
+}
+.box p:last-child { margin-bottom: 0; }
+
+.box-worry { background: #fff3ec; border-left: 5px solid #f07b3f; }
+.box-worry .box-title { color: #f07b3f; }
+.box-worry ul { padding-left: 20px; }
+.box-worry li { margin-bottom: 6px; font-size: 15px; }
+
+.box-learn { background: #1e2a4a; color: #fff; }
+.box-learn .box-title { color: #f4c542; }
+.box-learn ul { padding-left: 20px; }
+.box-learn li { margin-bottom: 8px; font-size: 15px; }
+.box-learn li::marker { color: #f4c542; }
+
+.box-teal { background: #e8f7f5; border-left: 5px solid #2a9d8f; }
+.box-teal .box-title { color: #2a9d8f; }
+
+.box-comfort { background: #fffbea; border: 2px solid #f4c542; text-align: center; }
+.box-comfort .box-title { color: #b8860b; font-size: 18px; }
+.box-comfort p { font-size: 15px; color: #555; line-height: 1.85; }
+
+.box-summary { background: #f8f7f4; border: 2px solid #e8e6e0; }
+.box-summary .box-title { color: #1e2a4a; }
+.box-summary ul { padding-left: 20px; }
+.box-summary li { margin-bottom: 7px; font-size: 15px; }
+
+.box-deep { background: #f0f3f9; border-left: 5px solid #1e2a4a; }
+.box-deep .box-title { color: #1e2a4a; }
+
+/* 吹き出し対話 */
+.chat { margin: 28px 0; }
+.bubble {
+	display: flex;
+	align-items: flex-start;
+	gap: 13px;
+	margin-bottom: 14px;
+}
+.bubble.right { flex-direction: row-reverse; }
+.avatar {
+	width: 46px;
+	height: 46px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 21px;
+	flex-shrink: 0;
+}
+.av-reader { background: #fff3ec; }
+.av-sensei { background: #e8edf7; }
+.speech {
+	background: #fff;
+	border: 2px solid #e8e6e0;
+	border-radius: 14px;
+	padding: 13px 17px;
+	font-size: 15px;
+	max-width: 500px;
+	line-height: 1.8;
+	min-width: 0;
+}
+.bubble:not(.right) .speech { border-radius: 4px 14px 14px 14px; }
+.bubble.right .speech {
+	border-radius: 14px 4px 14px 14px;
+	background: #1e2a4a;
+	color: #fff;
+	border-color: #1e2a4a;
+}
+.speaker {
+	font-size: 11px;
+	font-weight: 700;
+	color: #666;
+	margin-bottom: 4px;
+}
+.bubble.right .speaker {
+	text-align: right;
+	color: rgba(255,255,255,0.5);
+}
+@media (max-width: 480px) {
+	.speech { max-width: 85%; font-size: 14px; }
+	.avatar { width: 38px; height: 38px; font-size: 18px; }
+}
+
+/* HTMLフロー図 */
+.flow {
+	background: #fff;
+	border: 2px solid #e8e6e0;
+	border-radius: 14px;
+	padding: 24px 28px;
+	margin: 24px 0;
+}
+.flow-title {
+	font-size: 13px;
+	font-weight: 700;
+	color: #666;
+	margin-bottom: 16px;
+	letter-spacing: 0.05em;
+}
+.flow-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+	flex-wrap: wrap;
+}
+.flow-item {
+	background: #1e2a4a;
+	color: #fff;
+	border-radius: 8px;
+	padding: 8px 14px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.4;
+}
+.flow-item.orange { background: #f07b3f; }
+.flow-item.teal { background: #2a9d8f; }
+.flow-arrow { font-size: 18px; color: #999; flex-shrink: 0; }
+.flow-note { font-size: 13px; color: #666; margin-top: 14px; line-height: 1.75; margin-bottom: 0; }
+@media (max-width: 480px) {
+	.flow { padding: 18px 16px; }
+	.flow-item { font-size: 13px; padding: 7px 11px; }
+}
+
+/* チェックリスト（ラベル+チェックボックス形式） */
+.checklist-action {
+	background: #1e2a4a;
+	color: #fff;
+	border-radius: 16px;
+	padding: 28px 32px;
+	margin: 32px 0;
+}
+.checklist-action h3 {
+	color: #f4c542;
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 17px;
+	border: none;
+	padding: 0;
+	border-bottom: none;
+}
+.checklist-action label {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-bottom: 14px;
+	font-size: 15px;
+	cursor: pointer;
+	line-height: 1.7;
+	color: #fff;
+}
+.checklist-action input[type="checkbox"] {
+	width: 18px;
+	height: 18px;
+	margin-top: 3px;
+	accent-color: #f07b3f;
+	flex-shrink: 0;
+	cursor: pointer;
+}
+@media (max-width: 480px) {
+	.checklist-action { padding: 22px 18px; }
+	.checklist-action label { font-size: 14px; }
+}
+
+/* 参考文献注記 */
+.note {
+	font-size: 12px;
+	color: #888;
+	margin-top: 44px;
+	padding-top: 16px;
+	border-top: 1px solid #e8e6e0;
+	line-height: 1.85;
+}
