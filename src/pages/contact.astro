@@ -120,6 +120,20 @@ import { SITE_TITLE } from '../consts';
 				color: rgb(var(--gray));
 				margin-top: 1.6em;
 			}
+			.google-form-btn {
+				display: inline-block;
+				background: var(--accent);
+				color: #ffffff;
+				padding: 0.85em 2.8em;
+				border-radius: 6px;
+				font-size: 1em;
+				font-weight: 700;
+				font-family: inherit;
+				text-decoration: none;
+				transition: opacity 0.2s;
+				margin-top: 0.5em;
+			}
+			.google-form-btn:hover { opacity: 0.85; }
 		</style>
 	</head>
 	<body>
@@ -133,28 +147,14 @@ import { SITE_TITLE } from '../consts';
 					通常2〜5営業日以内にご返信いたします。
 				</p>
 
-				<form id="contact-form" name="contact" method="POST" data-netlify="true">
-					<input type="hidden" name="form-name" value="contact" />
-
-					<div class="form-group">
-						<label for="name">お名前<span class="required">*</span></label>
-						<input type="text" id="name" name="name" placeholder="例：山田 太郎" required />
-					</div>
-
-					<div class="form-group">
-						<label for="email">メールアドレス<span class="required">*</span></label>
-						<input type="email" id="email" name="email" placeholder="例：example@email.com" required />
-					</div>
-
-					<div class="form-group">
-						<label for="message">お問い合わせ内容<span class="required">*</span></label>
-						<textarea id="message" name="message" placeholder="お問い合わせ内容をご記入ください" required></textarea>
-					</div>
-
-					<button type="submit" class="submit-btn" id="submit-btn">送信する</button>
-
-					<div class="result-message" id="result-message"></div>
-				</form>
+				<a
+					href="https://docs.google.com/forms/d/e/1FAIpQLScDzYU56lyRbh0zciKWjLWh5zUIm17CHAGx0WMNXQDiCDJXsg/viewform?usp=publish-editor"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="google-form-btn"
+				>
+					お問い合わせはこちら
+				</a>
 
 				<div class="note-box">
 					<strong>ご注意</strong><br>
@@ -165,42 +165,5 @@ import { SITE_TITLE } from '../consts';
 			</div>
 		</main>
 		<Footer />
-		<script>
-			var form = document.getElementById('contact-form');
-			var btn = document.getElementById('submit-btn');
-			var msg = document.getElementById('result-message');
-
-			form.addEventListener('submit', function(e) {
-				e.preventDefault();
-				btn.disabled = true;
-				btn.textContent = '送信中…';
-				msg.style.display = 'none';
-				msg.className = 'result-message';
-
-				var data = new FormData(form);
-				var body = new URLSearchParams(data).toString();
-
-				fetch('/', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					body: body
-				}).then(function(res) {
-					if (res.ok) {
-						msg.textContent = '送信が完了しました。ありがとうございます。通常2〜5営業日以内にご返信いたします。';
-						msg.classList.add('success');
-						form.reset();
-					} else {
-						throw new Error('送信エラー');
-					}
-				}).catch(function() {
-					msg.textContent = '送信に失敗しました。しばらく時間をおいてから再度お試しください。';
-					msg.classList.add('error');
-				}).finally(function() {
-					msg.style.display = 'block';
-					btn.disabled = false;
-					btn.textContent = '送信する';
-				});
-			});
-		</script>
 	</body>
 </html>
