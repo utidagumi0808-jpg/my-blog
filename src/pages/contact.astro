@@ -180,7 +180,7 @@ import { SITE_TITLE } from '../consts';
 				var data = new FormData(form);
 				var body = new URLSearchParams(data).toString();
 
-				fetch('/contact', {
+				fetch('/', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					body: body
