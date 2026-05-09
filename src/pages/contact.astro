@@ -133,11 +133,8 @@ import { SITE_TITLE } from '../consts';
 					通常2〜5営業日以内にご返信いたします。
 				</p>
 
-				<form id="contact-form">
-					<!-- Web3Forms access key（web3forms.comで取得したキーに差し替えてください） -->
-					<input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
-					<input type="hidden" name="subject" value="【ヒトのトリセツ】お問い合わせ" />
-					<input type="hidden" name="from_name" value="ヒトのトリセツ お問い合わせフォーム" />
+				<form id="contact-form" name="contact" method="POST" data-netlify="true">
+					<input type="hidden" name="form-name" value="contact" />
 
 					<div class="form-group">
 						<label for="name">お名前<span class="required">*</span></label>
@@ -160,42 +157,49 @@ import { SITE_TITLE } from '../consts';
 				</form>
 
 				<div class="note-box">
-					いただいた情報は、ご返信の目的にのみ使用いたします。第三者への提供は一切行いません。
+					<strong>ご注意</strong><br>
+					・いただいたご意見は今後の記事改善に役立てます。個別の返信をお約束するものではありません。<br>
+					・医療・健康に関する個別のご相談はお受けできません。<br>
+					・スパム防止のため、URLを含むメッセージはお断りする場合があります。
 				</div>
 			</div>
 		</main>
 		<Footer />
-
 		<script>
-			const form = document.getElementById('contact-form') as HTMLFormElement;
-			const btn = document.getElementById('submit-btn') as HTMLButtonElement;
-			const result = document.getElementById('result-message') as HTMLDivElement;
+			var form = document.getElementById('contact-form');
+			var btn = document.getElementById('submit-btn');
+			var msg = document.getElementById('result-message');
 
-			form.addEventListener('submit', async (e) => {
+			form.addEventListener('submit', function(e) {
 				e.preventDefault();
 				btn.disabled = true;
-				btn.textContent = '送信中...';
-				result.style.display = 'none';
+				btn.textContent = '送信中…';
+				msg.style.display = 'none';
+				msg.className = 'result-message';
 
-				const formData = new FormData(form);
-				const res = await fetch('https://api.web3forms.com/submit', {
+				var data = new FormData(form);
+				var body = new URLSearchParams(data).toString();
+
+				fetch('/contact', {
 					method: 'POST',
-					body: formData,
-				});
-				const data = await res.json();
-
-				if (data.success) {
-					result.className = 'result-message success';
-					result.textContent = 'お問い合わせを受け付けました。ありがとうございます！通常2〜5営業日以内にご返信いたします。';
-					form.reset();
-					btn.textContent = '送信完了';
-				} else {
-					result.className = 'result-message error';
-					result.textContent = '送信に失敗しました。しばらく時間をおいてから再度お試しください。';
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					body: body
+				}).then(function(res) {
+					if (res.ok) {
+						msg.textContent = '送信が完了しました。ありがとうございます。通常2〜5営業日以内にご返信いたします。';
+						msg.classList.add('success');
+						form.reset();
+					} else {
+						throw new Error('送信エラー');
+					}
+				}).catch(function() {
+					msg.textContent = '送信に失敗しました。しばらく時間をおいてから再度お試しください。';
+					msg.classList.add('error');
+				}).finally(function() {
+					msg.style.display = 'block';
 					btn.disabled = false;
 					btn.textContent = '送信する';
-				}
-				result.style.display = 'block';
+				});
 			});
 		</script>
 	</body>
