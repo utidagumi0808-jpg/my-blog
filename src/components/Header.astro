@@ -48,10 +48,13 @@ import HeaderLink from './HeaderLink.astro';
 </script>
 
 <style>
+	/* ヒトのトリセツ デザイン改善 2025-05 */
+	/* header { background: #1a3a2a; ... } */
 	header {
-		background: #1a3a2a;
+		background: var(--color-main);
 		padding: 0 1.5em;
 		box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+		border-bottom: 2px solid var(--color-accent);
 		position: sticky;
 		top: 0;
 		z-index: 100;
@@ -71,8 +74,10 @@ import HeaderLink from './HeaderLink.astro';
 		flex-direction: column;
 		gap: 2px;
 	}
+	/* ヒトのトリセツ デザイン改善 2025-05 */
+	/* .logo-main { font-family: 'Noto Serif JP', serif; ... } */
 	.logo-main {
-		font-family: 'Noto Serif JP', serif;
+		font-family: 'M PLUS Rounded 1c', sans-serif;
 		font-size: 1.3em;
 		font-weight: 700;
 		color: #ffffff;
@@ -87,8 +92,10 @@ import HeaderLink from './HeaderLink.astro';
 		display: flex;
 		gap: 0.2em;
 	}
+	/* ヒトのトリセツ デザイン改善 2025-05 */
+	/* nav :global(a) { color: rgba(255,255,255,0.85); ... } */
 	nav :global(a) {
-		color: rgba(255,255,255,0.85);
+		color: #ffffff;
 		padding: 0.4em 0.8em;
 		border-radius: 4px;
 		font-size: 0.88em;
@@ -96,10 +103,11 @@ import HeaderLink from './HeaderLink.astro';
 		transition: background 0.2s, color 0.2s;
 		white-space: nowrap;
 	}
+	/* nav :global(a:hover), nav :global(a.active) { color: #ffffff; ... } */
 	nav :global(a:hover),
 	nav :global(a.active) {
-		background: rgba(255,255,255,0.15);
-		color: #ffffff;
+		background: rgba(255,255,255,0.12);
+		color: var(--color-accent);
 		text-decoration: none;
 	}
 
@@ -155,7 +163,8 @@ import HeaderLink from './HeaderLink.astro';
 			top: 100%;
 			left: 0;
 			right: 0;
-			background: #1a3a2a;
+			/* ヒトのトリセツ デザイン改善 2025-05 - background: #1a3a2a → var(--color-main) */
+			background: var(--color-main);
 			flex-direction: column;
 			padding: 0.4em 1em 0.8em;
 			box-shadow: 0 6px 16px rgba(0,0,0,0.35);
