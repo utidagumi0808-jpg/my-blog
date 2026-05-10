@@ -16,15 +16,18 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			/* ヒトのトリセツ デザイン改善 2025-05 */
+			/* .hero { background: linear-gradient(135deg, #1a3a2a 0%, #2a6a45 100%); ... } */
 			.hero {
-				background: linear-gradient(135deg, #1a3a2a 0%, #2a6a45 100%);
+				background: var(--color-main);
 				color: white;
 				padding: 3em 1.5em;
 				text-align: center;
 				margin-bottom: 2.5em;
 			}
+			/* .hero-title { font-family: 'Noto Serif JP', serif; ... } */
 			.hero-title {
-				font-family: 'Noto Serif JP', serif;
+				font-family: 'M PLUS Rounded 1c', sans-serif; /* ヒトのトリセツ デザイン改善 2025-05 */
 				font-size: 2em;
 				font-weight: 700;
 				color: white;
