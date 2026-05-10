@@ -246,11 +246,22 @@ li {
 .target-box ul li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
 
 /* 会話吹き出し */
-.voice-reader {
+/* ヒトのトリセツ デザイン改善 2025-05 */
+/* .voice-reader {
 	background: var(--accent-light);
 	border: 1.5px solid var(--accent);
 	border-radius: 8px 8px 8px 2px;
 	padding: 0.9em 1.1em;
+	margin: 0 0 0.5em 0;
+	font-size: 0.9em;
+	max-width: 85%;
+} */
+.voice-reader {
+	background: var(--accent-light);
+	border: 1.5px solid var(--accent);
+	border-radius: 18px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+	padding: 1rem 1.25rem;
 	margin: 0 0 0.5em 0;
 	font-size: 0.9em;
 	max-width: 85%;
@@ -262,11 +273,22 @@ li {
 	line-height: 1;
 	margin-bottom: 6px;
 }
-.voice-author {
+/* ヒトのトリセツ デザイン改善 2025-05 */
+/* .voice-author {
 	background: #fff;
 	border: 1.5px solid var(--border);
 	border-radius: 8px 8px 2px 8px;
 	padding: 0.9em 1.1em;
+	margin: 0 0 1.5em auto;
+	font-size: 0.9em;
+	max-width: 85%;
+} */
+.voice-author {
+	background: #fff;
+	border: 1.5px solid var(--border);
+	border-radius: 18px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+	padding: 1rem 1.25rem;
 	margin: 0 0 1.5em auto;
 	font-size: 0.9em;
 	max-width: 85%;
@@ -501,12 +523,20 @@ li {
 @media (max-width: 600px) { .hormone-grid { grid-template-columns: 1fr; } .hormone-arrow { transform: rotate(90deg); } }
 
 /* 「悪いのはあなたじゃない」ボックス */
-.excuse {
+/* ヒトのトリセツ デザイン改善 2025-05 */
+/* .excuse {
 	background: linear-gradient(135deg, #fff8f4, #fdf3ec);
 	border: 1px solid #e8d5c4;
 	border-left: 5px solid var(--accent);
 	border-radius: 0 6px 6px 0;
 	padding: 1.6em 1.8em;
+	margin: 2em 0;
+} */
+.excuse {
+	background: #fff8f3;
+	border-left: 4px solid var(--color-accent);
+	border-radius: 12px;
+	padding: 1.5rem 1.75rem;
 	margin: 2em 0;
 }
 .excuse .ex-title {
@@ -883,9 +913,18 @@ li {
    ===================== */
 
 /* 悩み・学習・解説ボックス共通 */
-.box {
+/* ヒトのトリセツ デザイン改善 2025-05 */
+/* .box {
 	border-radius: 16px;
 	padding: 24px 28px;
+	margin: 32px 0;
+} */
+.box {
+	background: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+	padding: 1.5rem 1.75rem;
+	border-left: 4px solid var(--color-accent);
 	margin: 32px 0;
 }
 .box-title {
