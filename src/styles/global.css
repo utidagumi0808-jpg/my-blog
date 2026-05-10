@@ -1,9 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+/* ヒトのトリセツ デザイン改善 2025-05 */
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
 
 :root {
+	/* 旧カラー設定（コメントアウト）
 	--accent: #1e7d4a;
 	--accent-dark: #145c35;
 	--accent-light: #e8f5ee;
+	*/
+	/* ヒトのトリセツ デザイン改善 2025-05 */
+	--color-main: #1e2a4a;          /* ネイビー */
+	--color-accent: #f07b3f;        /* オレンジ */
+	--color-accent-dark: #c05c20;   /* オレンジ（暗め） */
+	--color-accent-light: #fff0e8;  /* オレンジ（薄め） */
+	/* 後方互換エイリアス（既存の var(--accent) がそのまま動く） */
+	--accent: var(--color-accent);
+	--accent-dark: var(--color-accent-dark);
+	--accent-light: var(--color-accent-light);
 	--black: 30, 32, 36;
 	--gray: 100, 110, 120;
 	--gray-light: 240, 242, 245;
@@ -23,7 +36,8 @@ html {
 }
 
 body {
-	font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+	/* font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; */
+	font-family: 'M PLUS Rounded 1c', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; /* ヒトのトリセツ デザイン改善 2025-05 */
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -47,7 +61,8 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.6rem 0;
 	color: rgb(var(--black));
 	line-height: 1.35;
-	font-family: 'Noto Serif JP', serif;
+	/* font-family: 'Noto Serif JP', serif; */
+	font-family: 'M PLUS Rounded 1c', sans-serif; /* ヒトのトリセツ デザイン改善 2025-05 */
 }
 
 h1 { font-size: 2em; }
@@ -407,7 +422,8 @@ li {
 	min-width: 120px;
 }
 .stat-num {
-	font-family: 'Noto Serif JP', serif;
+	/* font-family: 'Noto Serif JP', serif; */
+	font-family: 'M PLUS Rounded 1c', sans-serif; /* ヒトのトリセツ デザイン改善 2025-05 */
 	font-size: 2.4em;
 	font-weight: 700;
 	line-height: 1;
@@ -450,7 +466,8 @@ li {
 }
 .hormone-card.hunger { border-top: 3px solid #e05a2b; }
 .hormone-card.full { border-top: 3px solid #4a90a4; }
-.hormone-name { font-family: 'Noto Serif JP', serif; font-size: 1em; font-weight: 700; margin-bottom: 0.4em; }
+/* .hormone-name { font-family: 'Noto Serif JP', serif; font-size: 1em; font-weight: 700; margin-bottom: 0.4em; } */
+.hormone-name { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 1em; font-weight: 700; margin-bottom: 0.4em; } /* ヒトのトリセツ デザイン改善 2025-05 */
 .hormone-name.h { color: #e05a2b; }
 .hormone-name.f { color: #4a90a4; }
 .hormone-desc { font-size: 0.78em; color: rgb(var(--gray)); line-height: 1.7; margin-bottom: 0; }
@@ -475,7 +492,8 @@ li {
 	margin: 2em 0;
 }
 .excuse .ex-title {
-	font-family: 'Noto Serif JP', serif;
+	/* font-family: 'Noto Serif JP', serif; */
+	font-family: 'M PLUS Rounded 1c', sans-serif; /* ヒトのトリセツ デザイン改善 2025-05 */
 	font-size: 1em;
 	font-weight: 700;
 	margin-bottom: 0.7em;

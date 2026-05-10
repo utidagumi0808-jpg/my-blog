@@ -2,12 +2,15 @@
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders } from 'astro/config';
+// ヒトのトリセツ デザイン改善 2025-05 - Atkinsonフォントを M PLUS Rounded 1c に置き換えたため fontProviders 不要
+// import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://hitono-torisetu.com',
 	integrations: [mdx(), sitemap()],
+	/* ヒトのトリセツ デザイン改善 2025-05 - Atkinsonフォント設定を無効化
 	fonts: [
 		{
 			provider: fontProviders.local(),
@@ -32,4 +35,5 @@ export default defineConfig({
 			},
 		},
 	],
+	*/
 });

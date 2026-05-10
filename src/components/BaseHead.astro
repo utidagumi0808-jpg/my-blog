@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_TITLE } from '../consts';
-import { Font } from 'astro:assets';
+// import { Font } from 'astro:assets'; // ヒトのトリセツ デザイン改善 2025-05 - Atkinsonフォント無効化
 
 interface Props {
 	title: string;
@@ -32,7 +32,7 @@ const ogImage = image
 />
 <meta name="generator" content={Astro.generator} />
 
-<Font cssVariable="--font-atkinson" preload />
+{/* <Font cssVariable="--font-atkinson" preload /> */}{/* ヒトのトリセツ デザイン改善 2025-05 - Atkinsonフォント無効化 */}
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
