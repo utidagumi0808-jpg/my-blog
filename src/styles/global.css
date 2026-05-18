@@ -981,6 +981,7 @@ li {
 }
 .av-reader { background: #fff3ec; }
 .av-sensei { background: #e8edf7; }
+.av-sensei::before { content: "🧬"; }
 .speech {
 	background: #fff;
 	border: 2px solid #e8e6e0;
