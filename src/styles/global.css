@@ -266,13 +266,6 @@ li {
 	font-size: 0.9em;
 	max-width: 85%;
 }
-.voice-reader::before {
-	content: "🙋";
-	display: block;
-	font-size: 22px;
-	line-height: 1;
-	margin-bottom: 6px;
-}
 /* ヒトのトリセツ デザイン改善 2025-05 */
 /* .voice-author {
 	background: #fff;
@@ -292,13 +285,6 @@ li {
 	margin: 0 0 1.5em auto;
 	font-size: 0.9em;
 	max-width: 85%;
-}
-.voice-author::before {
-	content: "🧑‍🔬";
-	display: block;
-	font-size: 22px;
-	line-height: 1;
-	margin-bottom: 6px;
 }
 
 /* データハイライト */
