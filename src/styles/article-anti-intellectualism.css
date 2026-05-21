@@ -1,0 +1,308 @@
+/* 記事専用スタイル: anti-intellectualism-article */
+/* .prose スコープで詳細度を上げ、global.css の同名クラスを安全に上書きする */
+
+/* 悩みボックス */
+.prose .box-worry {
+  background: #eef0f6;
+  border: 2px solid #c5cbe0;
+  border-left: none;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 32px 0;
+  box-shadow: none;
+}
+
+.prose .box-worry .box-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1e2a4a;
+  margin-bottom: 14px;
+}
+
+.prose .box-worry ul {
+  list-style: none;
+  padding: 0;
+}
+
+.prose .box-worry ul li {
+  padding: 5px 0 5px 26px;
+  position: relative;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+.prose .box-worry ul li::before {
+  content: '😔';
+  position: absolute;
+  left: 0;
+}
+
+/* 学ぶことボックス */
+.prose .box-learn {
+  background: #fff3ec;
+  border: 2px solid #f5c4a5;
+  border-left: none;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 32px 0;
+  color: #333333;
+  box-shadow: none;
+}
+
+.prose .box-learn .box-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #f07b3f;
+  margin-bottom: 14px;
+}
+
+.prose .box-learn ul {
+  list-style: none;
+  padding: 0;
+}
+
+.prose .box-learn ul li {
+  padding: 5px 0 5px 26px;
+  position: relative;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+.prose .box-learn ul li::before {
+  content: '✅';
+  position: absolute;
+  left: 0;
+}
+
+.prose .box-learn ul li::marker {
+  content: none;
+}
+
+/* まとめボックス */
+.prose .box-summary {
+  background: #1e2a4a;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 48px 0;
+  box-shadow: none;
+}
+
+.prose .box-summary .box-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #f07b3f;
+  margin-bottom: 16px;
+}
+
+.prose .box-summary ul {
+  list-style: none;
+  padding: 0;
+}
+
+.prose .box-summary ul li {
+  padding: 6px 0 6px 24px;
+  position: relative;
+  font-size: 15px;
+  opacity: 0.92;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.prose .box-summary ul li:last-child {
+  border-bottom: none;
+}
+
+.prose .box-summary ul li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: #f07b3f;
+  font-size: 12px;
+  top: 10px;
+}
+
+.prose .box-summary ul li::marker {
+  content: none;
+}
+
+/* 吹き出し */
+.balloon-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.balloon-wrap.right {
+  flex-direction: row-reverse;
+}
+
+.balloon-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.balloon-icon.reader {
+  background: #e8eaf6;
+}
+
+.balloon-icon.author {
+  background: #1e2a4a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.balloon-body {
+  max-width: calc(100% - 70px);
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.7;
+  position: relative;
+}
+
+.balloon-body.reader {
+  background: #e8eaf6;
+  border-radius: 12px 12px 12px 0;
+}
+
+.balloon-body.author {
+  background: #fff3ec;
+  border: 1.5px solid #f5c4a5;
+  border-radius: 12px 12px 0 12px;
+}
+
+.balloon-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+/* ハイライトボックス（歴史的実例・研究の裏付け） */
+.highlight-box {
+  background: #ffffff;
+  border: 2px solid #f07b3f;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 15px;
+}
+
+.highlight-box .label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #f07b3f;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+/* 注釈ボックス */
+.note-box {
+  background: #fffbe6;
+  border-left: 4px solid #f0c040;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  margin: 20px 0;
+  line-height: 1.7;
+}
+
+/* チェックリスト（記事固有ボックス形式） */
+.prose .checklist {
+  background: #ffffff;
+  border: 2px solid #c5cbe0;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 48px 0;
+  display: block;
+  flex-direction: unset;
+  gap: unset;
+}
+
+.prose .checklist .box-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1e2a4a;
+  margin-bottom: 20px;
+}
+
+.prose .checklist ul {
+  list-style: none;
+  padding: 0;
+}
+
+.prose .checklist ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed #dde0ea;
+  font-size: 15px;
+  margin-bottom: 0;
+  color: #333333;
+}
+
+.prose .checklist ul li:last-child {
+  border-bottom: none;
+}
+
+.prose .checklist ul li input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: #f07b3f;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* 参考文献 */
+.references {
+  font-size: 13px;
+  color: #777;
+  border-top: 1px solid #dde0ea;
+  padding-top: 24px;
+  margin-top: 48px;
+}
+
+.references h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e2a4a;
+  margin-bottom: 10px;
+}
+
+.references ol {
+  padding-left: 20px;
+}
+
+.references ol li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.references a {
+  color: #f07b3f;
+  text-decoration: underline;
+}
+
+.references a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .balloon-body { font-size: 14px; }
+  .prose .checklist { padding: 20px 16px; }
+}
