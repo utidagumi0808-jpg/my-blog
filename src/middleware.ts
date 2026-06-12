@@ -13,6 +13,7 @@ const redirects: Record<string, string> = {
   '/blog/人生がつまらない理由（フロー）':   '/blog/boredom-flow-article',
   '/blog/人類進化の時間スケール':          '/blog/evolution-timescale-article',
   '/blog/睡眠':                          '/blog/sleep-article',
+  '/blog/why-staying-up-destroys-your-body': '/blog/sleep-article',
   '/blog/脳と意識のタイムラグ':           '/blog/brain-consciousness-lag-article',
   '/blog/不公平に怒るのはなぜか':         '/blog/unfairness-anger-article',
 };
