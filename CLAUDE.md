@@ -30,9 +30,11 @@ npm run deploy
 チャットからダウンロードしたHTMLファイルをMDX記事にする手順：
 
 1. ファイル名は**英語スラッグ**にする（例：`multitasking-truth.mdx`）。日本語ファイル名は禁止。
-2. 記事の配置先：`src/content/blog/`【要確認：実際のパス】
-3. frontmatterに必要な項目：`title` / `description` / `pubDate`【要確認：他に必須項目があれば追記】
+2. 記事の配置先：`src/content/blog/`
+3. frontmatterに必要な項目：`title` / `description` / `pubDate` / `heroImage`
+   - pubDateのフォーマット：`'Jun 05 2026'`（英語月・2桁日・4桁年）
    - pubDateはヒトミさんに確認してから記入（絶対ルール3）。
+   - heroImageはサムネイル画像のパス（例：`/sleep-thumbnail.png`）。
 4. HTML内のコンポーネント（悩みボックス・学びボックス・吹き出し・チェックリスト・まとめボックス・出典）を既存記事と同じクラス名・構造で実装する。
    - 先生キャラの🧬絵文字はCSSの `::before`（`av-sensei`クラス）で表示される。本文に絵文字を直書きしない。
 5. 既存記事のURLを変更した場合は `src/middleware.ts` に301リダイレクトを追加する。
