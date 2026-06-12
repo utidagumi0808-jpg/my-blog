@@ -1,14 +1,15 @@
 // @ts-check
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://hitono-torisetu.com',
   integrations: [mdx(), sitemap()],
+  adapter: cloudflare(),
   redirects: {
     '/blog/ストレスでボロボロになる理由':        '/blog/stress-body-article',
-    '/blog/だらだらしたいのは正常　運動について': '/blog/lazy-exercise-article',
     '/blog/なぜ宗教を信じてしまうのか':          '/blog/why-religion-article',
     '/blog/なぜ人はすれ違ってしまうのか':        '/blog/human-misunderstanding-article',
     '/blog/なぜ満たされないのか':               '/blog/why-unsatisfied-article',
