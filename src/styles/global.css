@@ -418,8 +418,8 @@ li {
 .action-box .action-title { font-size: 1em; font-weight: 700; color: #e67e22; margin-bottom: 0.6em; }
 .action-box p { font-size: 0.9em; margin-bottom: 0; line-height: 1.8; }
 
-/* マーカー強調 */
-.prose strong {
+/* マーカー強調（インラインスタイルなしの strong のみ — 暗背景ボックス内は除外） */
+.prose strong:not([style]) {
 	background: linear-gradient(transparent 60%, #ffe68a 60%);
 }
 
