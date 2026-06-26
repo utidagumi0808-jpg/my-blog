@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>トレーニングトラッカー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1e2a4a;
+    --orange:#f07b3f;
+    --bg:#f4f5f8;
+    --card:#ffffff;
+    --ok:#3fae7b;
+    --warn:#e74c3c;
+    --muted:#8a93a6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'M PLUS Rounded 1c',sans-serif;
+    background:var(--bg);
+    color:var(--navy);
+    line-height:1.6;
+    padding:16px;
+    max-width:560px;
+    margin:0 auto;
+  }
+  h1{font-size:1.3rem;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+  .sub{color:var(--muted);font-size:.8rem;margin-bottom:16px;}
+  /* 部位切り替えタブ */
+  .tabs{display:flex;gap:8px;margin-bottom:16px;}
+  .tab{
+    flex:1;padding:12px;border:1.5px solid #e0e4ec;border-radius:12px;
+    background:#fff;font-family:inherit;font-size:.95rem;font-weight:700;
+    color:var(--muted);cursor:pointer;text-align:center;
+  }
+  .tab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .card{
+    background:var(--card);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(30,42,74,.06);
+  }
+  .card h2{font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+  /* 回復ゲージ */
+  .recovery{display:flex;align-items:center;gap:18px;}
+  .ring-wrap{position:relative;width:96px;height:96px;flex-shrink:0;}
+  .ring-wrap svg{transform:rotate(-90deg);}
+  .ring-center{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .ring-center .big{font-size:1.1rem;font-weight:700;}
+  .ring-center .small{font-size:.65rem;color:var(--muted);}
+  .recovery-msg{font-size:.9rem;}
+  .recovery-msg .status-ok{color:var(--ok);font-weight:700;}
+  .recovery-msg .status-rest{color:var(--orange);font-weight:700;}
+  /* 週回数 */
+  .week-dots{display:flex;gap:8px;margin-top:8px;}
+  .dot{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.7rem;background:#e6e9f0;color:var(--muted);
+  }
+  .dot.done{background:var(--orange);color:#fff;font-weight:700;}
+  .week-target{font-size:.8rem;color:var(--muted);margin-top:8px;}
+  /* フォーム */
+  label{display:block;font-size:.8rem;font-weight:500;margin:10px 0 4px;}
+  select,input[type=text],input[type=number]{
+    width:100%;padding:10px;border:1.5px solid #e0e4ec;border-radius:10px;
+    font-family:inherit;font-size:.95rem;color:var(--navy);background:#fff;
+  }
+  select:focus,input:focus{outline:none;border-color:var(--orange);}
+  .row{display:flex;gap:10px;}
+  .row>div{flex:1;}
+  /* ヒント */
+  .hint{
+    background:#fff8f0;border-left:4px solid var(--orange);
+    border-radius:8px;padding:10px 12px;margin-top:10px;font-size:.82rem;
+  }
+  .hint.empty{color:var(--muted);background:#f7f8fb;border-left-color:#d6dae4;}
+  /* 感覚ボタン */
+  .sense-btns{display:flex;gap:8px;margin-top:4px;}
+  .sense-btns button{
+    flex:1;padding:10px 4px;border:1.5px solid #e0e4ec;border-radius:10px;
+    background:#fff;font-family:inherit;font-size:.8rem;cursor:pointer;color:var(--navy);
+  }
+  .sense-btns button.active{border-color:var(--orange);background:#fff8f0;font-weight:700;}
+  .sense-btns button.pain.active{border-color:var(--warn);background:#fdecea;color:var(--warn);}
+  .pain-alert{
+    display:none;background:#fdecea;color:var(--warn);border-radius:8px;
+    padding:10px 12px;margin-top:10px;font-size:.82rem;font-weight:500;
+  }
+  .pain-alert.show{display:block;}
+  /* ボタン */
+  .btn{
+    width:100%;padding:13px;border:none;border-radius:12px;
+    background:var(--orange);color:#fff;font-family:inherit;font-size:1rem;
+    font-weight:700;cursor:pointer;margin-top:16px;
+  }
+  .btn:active{opacity:.85;}
+  .btn-sub{background:var(--navy);}
+  .btn-ghost{background:#fff;color:var(--navy);border:1.5px solid #e0e4ec;}
+  /* 記録一覧 */
+  .log-item{
+    border-bottom:1px solid #eef0f5;padding:10px 0;font-size:.85rem;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:8px;
+  }
+  .log-item:last-child{border-bottom:none;}
+  .log-main{flex:1;}
+  .log-ex{font-weight:700;}
+  .log-part{
+    font-size:.65rem;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px;
+    vertical-align:middle;
+  }
+  .log-part.lower{background:#fff0e6;color:var(--orange);}
+  .log-part.upper{background:#e6eefc;color:#3b6cd4;}
+  .log-meta{color:var(--muted);font-size:.75rem;}
+  .log-sense{font-size:1rem;flex-shrink:0;}
+  .log-del{
+    background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;
+    text-decoration:underline;padding:0;flex-shrink:0;
+  }
+  .backup-row{display:flex;gap:10px;margin-top:8px;}
+  .backup-row .btn{margin-top:0;font-size:.85rem;padding:11px;}
+  .empty-log{color:var(--muted);font-size:.85rem;text-align:center;padding:16px 0;}
+  .log-filter{display:flex;gap:6px;margin-bottom:10px;}
+  .log-filter button{
+    padding:5px 12px;border:1.5px solid #e0e4ec;border-radius:20px;
+    background:#fff;font-family:inherit;font-size:.75rem;cursor:pointer;color:var(--muted);
+  }
+  .log-filter button.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+    background:var(--navy);color:#fff;padding:12px 20px;border-radius:24px;
+    font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99;
+  }
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<h1>💪 トレーニングトラッカー</h1>
+<div class="sub">下半身・上半身 ｜ 48時間回復・漸進性過負荷を見える化</div>
+
+<!-- 部位切り替えタブ -->
+<div class="tabs">
+  <button class="tab active" data-part="lower">🦵 下半身</button>
+  <button class="tab" data-part="upper">💪 上半身</button>
+</div>
+
+<!-- 回復ゲージ -->
+<div class="card">
+  <h2>🔋 回復ゲージ（<span id="partLabel1">下半身</span>）</h2>
+  <div class="recovery">
+    <div class="ring-wrap">
+      <svg width="96" height="96">
+        <circle cx="48" cy="48" r="42" fill="none" stroke="#e6e9f0" stroke-width="8"/>
+        <circle id="ringFill" cx="48" cy="48" r="42" fill="none" stroke="var(--orange)" stroke-width="8" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9"/>
+      </svg>
+      <div class="ring-center">
+        <span class="big" id="ringBig">--</span>
+        <span class="small" id="ringSmall">前回トレなし</span>
+      </div>
+    </div>
+    <div class="recovery-msg" id="recoveryMsg">まだ記録がありません。最初の1回を記録しましょう。</div>
+  </div>
+</div>
+
+<!-- 週回数 -->
+<div class="card">
+  <h2>📅 今週の回数（<span id="partLabel2">下半身</span>）</h2>
+  <div class="week-dots" id="weekDots"></div>
+  <div class="week-target" id="weekTarget">目安：週2〜3回</div>
+</div>
+
+<!-- 記録フォーム -->
+<div class="card">
+  <h2>✏️ 記録する（<span id="partLabel3">下半身</span>）</h2>
+  <label>種目</label>
+  <select id="exercise"></select>
+  <input type="text" id="exerciseCustom" placeholder="種目名を入力" style="display:none;margin-top:8px;">
+
+  <div id="lastHint" class="hint empty">種目を選ぶと前回の記録とヒントが出ます。</div>
+
+  <div class="row">
+    <div>
+      <label>回数（合計）</label>
+      <input type="number" id="reps" inputmode="numeric" placeholder="例：30">
+    </div>
+    <div>
+      <label>負荷</label>
+      <input type="text" id="load" placeholder="例：自重／本5kg">
+    </div>
+  </div>
+
+  <label>セット数</label>
+  <input type="number" id="sets" inputmode="numeric" placeholder="例：3">
+
+  <label>体感</label>
+  <div class="sense-btns" id="senseBtns">
+    <button data-sense="comfortable">😊 快適</button>
+    <button data-sense="burning">🔥 効いた</button>
+    <button data-sense="limit">😤 限界まで</button>
+    <button data-sense="pain" class="pain">⚠️ 痛みあり</button>
+  </div>
+  <div class="pain-alert" id="painAlert"></div>
+
+  <button class="btn" id="saveBtn">記録する</button>
+</div>
+
+<!-- 記録一覧 -->
+<div class="card">
+  <h2>📈 記録一覧</h2>
+  <div class="log-filter" id="logFilter">
+    <button data-filter="all" class="active">すべて</button>
+    <button data-filter="lower">🦵 下半身</button>
+    <button data-filter="upper">💪 上半身</button>
+  </div>
+  <div id="logList"><div class="empty-log">まだ記録がありません。</div></div>
+  <div class="backup-row">
+    <button class="btn btn-sub" id="exportBtn">📤 バックアップ書き出し</button>
+    <button class="btn btn-ghost" id="importBtn">📥 読み込み</button>
+  </div>
+  <input type="file" id="importFile" accept="application/json" style="display:none;">
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='trainingTracker_v3';
+const OLD_KEY='lowerBodyTracker_v2';
+
+let currentPart='lower';
+let logFilter='all';
+let selectedSense=null;
+
+const EXERCISES={
+  lower:['ブルガリアンスクワット','片足ルーマニアンデッドリフト','カーフレイズ'],
+  upper:['懸垂','ディップス','斜め懸垂','プッシュアップ']
+};
+const PART_NAME={lower:'下半身',upper:'上半身'};
+const PAIN_MSG={
+  lower:'鋭い痛みは中止のサインです。特にハムストリングスは肉離れに注意。痛みが続く場合はトレを中断し、必要なら専門家に相談してください。',
+  upper:'鋭い痛みは中止のサインです。肩・肘・手首に痛みが出たら無理せず中止を。痛みが続く場合は専門家に相談してください。'
+};
+
+/* ---------- データ ---------- */
+function load(){
+  try{
+    let arr=JSON.parse(localStorage.getItem(KEY));
+    if(arr)return arr;
+  }catch(e){}
+  try{
+    const old=JSON.parse(localStorage.getItem(OLD_KEY));
+    if(Array.isArray(old)&&old.length){
+      const migrated=old.map(r=>({...r,part:r.part||'lower'}));
+      localStorage.setItem(KEY,JSON.stringify(migrated));
+      return migrated;
+    }
+  }catch(e){}
+  return [];
+}
+function save(arr){
+  localStorage.setItem(KEY,JSON.stringify(arr));
+}
+
+/* ---------- 種目セレクト構築 ---------- */
+function buildExerciseOptions(){
+  const sel=document.getElementById('exercise');
+  sel.innerHTML='';
+  EXERCISES[currentPart].forEach(name=>{
+    const o=document.createElement('option');
+    o.textContent=name;sel.appendChild(o);
+  });
+  const co=document.createElement('option');
+  co.value='__custom__';co.textContent='＋ 自分で入力する';
+  sel.appendChild(co);
+  document.getElementById('exerciseCustom').style.display='none';
+  document.getElementById('exerciseCustom').value='';
+}
+
+/* ---------- 回復ゲージ（部位別） ---------- */
+function renderRecovery(arr){
+  const ring=document.getElementById('ringFill');
+  const big=document.getElementById('ringBig');
+  const small=document.getElementById('ringSmall');
+  const msg=document.getElementById('recoveryMsg');
+  const C=263.9;
+  const partArr=arr.filter(r=>r.part===currentPart);
+  if(partArr.length===0){
+    ring.style.strokeDashoffset=C;ring.style.stroke='var(--orange)';
+    big.textContent='--';small.textContent='前回トレなし';
+    msg.innerHTML='まだ記録がありません。最初の1回を記録しましょう。';
+    return;
+  }
+  const last=partArr[partArr.length-1];
+  const elapsedH=(Date.now()-last.ts)/3600000;
+  const ratio=Math.min(elapsedH/48,1);
+  ring.style.strokeDashoffset=C*(1-ratio);
+  if(ratio>=1){
+    ring.style.stroke='var(--ok)';
+    big.textContent='OK';small.textContent='回復完了';
+    msg.innerHTML='<span class="status-ok">回復OK</span><br>次の'+PART_NAME[currentPart]+'トレーニングに進めます。';
+  }else{
+    ring.style.stroke='var(--orange)';
+    const remain=Math.ceil(48-elapsedH);
+    big.textContent='あと'+remain;small.textContent='時間';
+    msg.innerHTML='<span class="status-rest">回復中</span><br>同じ部位は48時間あけるのが目安です。今日は休むか、別部位・軽い有酸素を。';
+  }
+}
+
+/* ---------- 今週の回数（部位別） ---------- */
+function startOfWeek(){
+  const d=new Date();
+  const day=(d.getDay()+6)%7;
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate()-day);
+  return d.getTime();
+}
+function renderWeek(arr){
+  const wrap=document.getElementById('weekDots');
+  const labels=['月','火','水','木','金','土','日'];
+  const sow=startOfWeek();
+  const doneDays=new Set();
+  arr.filter(r=>r.part===currentPart).forEach(r=>{
+    if(r.ts>=sow){
+      const day=(new Date(r.ts).getDay()+6)%7;
+      doneDays.add(day);
+    }
+  });
+  wrap.innerHTML='';
+  labels.forEach((l,i)=>{
+    const el=document.createElement('div');
+    el.className='dot'+(doneDays.has(i)?' done':'');
+    el.textContent=l;
+    wrap.appendChild(el);
+  });
+  const cnt=doneDays.size;
+  const t=document.getElementById('weekTarget');
+  if(cnt===0)t.textContent='目安：週2〜3回（今週はまだ0回）';
+  else if(cnt<2)t.textContent='今週'+cnt+'回。目安の週2〜3回まであと少し。';
+  else if(cnt<=3)t.textContent='今週'+cnt+'回。目安どおり good!';
+  else t.textContent='今週'+cnt+'回。やや多めです。回復とランの調子に注意。';
+}
+
+/* ---------- 過負荷ヒント ---------- */
+function showHint(){
+  const exVal=getExerciseName();
+  const hint=document.getElementById('lastHint');
+  if(!exVal){hint.className='hint empty';hint.textContent='種目を選ぶと前回の記録とヒントが出ます。';return;}
+  const arr=load().filter(r=>r.exercise===exVal&&r.part===currentPart);
+  if(arr.length===0){
+    hint.className='hint empty';
+    hint.textContent='「'+exVal+'」の記録はまだありません。今回が基準になります。';
+    return;
+  }
+  const last=arr[arr.length-1];
+  const d=new Date(last.ts);
+  const dateStr=(d.getMonth()+1)+'/'+d.getDate();
+  let advice='';
+  if(last.sense==='comfortable')advice='前回は余裕あり。1〜2回／1セット増やすか、負荷を少し上げるチャンスです。';
+  else if(last.sense==='burning')advice='前回はしっかり効いていました。同じか、わずかに増やして様子を見ましょう。';
+  else if(last.sense==='limit')advice='前回は限界まで。今回は同じ量を「あと1〜2回できる」で止めるのが安全です。';
+  else if(last.sense==='pain')advice='前回は痛みあり。今回は負荷を下げ、痛みが出ないか慎重に確認を。';
+  hint.className='hint';
+  hint.innerHTML='<b>前回（'+dateStr+'）</b>：'+last.reps+'回'+(last.sets?' / '+last.sets+'セット':'')+' / '+last.load+' '+senseEmoji(last.sense)+'<br>'+advice;
+}
+function senseEmoji(s){
+  return {comfortable:'😊',burning:'🔥',limit:'😤',pain:'⚠️'}[s]||'';
+}
+
+/* ---------- 種目名取得 ---------- */
+function getExerciseName(){
+  const sel=document.getElementById('exercise');
+  if(sel.value==='__custom__'){
+    return document.getElementById('exerciseCustom').value.trim();
+  }
+  return sel.value;
+}
+
+/* ---------- 記録一覧（フィルタ対応） ---------- */
+function renderLog(arr){
+  const wrap=document.getElementById('logList');
+  let list=arr;
+  if(logFilter!=='all')list=arr.filter(r=>r.part===logFilter);
+  if(list.length===0){wrap.innerHTML='<div class="empty-log">記録がありません。</div>';return;}
+  wrap.innerHTML='';
+  [...list].reverse().forEach(r=>{
+    const d=new Date(r.ts);
+    const dateStr=(d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    const partTag='<span class="log-part '+r.part+'">'+(r.part==='upper'?'上':'下')+'</span>';
+    const item=document.createElement('div');
+    item.className='log-item';
+    item.innerHTML=
+      '<div class="log-main">'+
+        '<div class="log-ex">'+escapeHtml(r.exercise)+partTag+'</div>'+
+        '<div class="log-meta">'+dateStr+' ｜ '+r.reps+'回'+(r.sets?' / '+r.sets+'セット':'')+' / '+escapeHtml(r.load)+'</div>'+
+      '</div>'+
+      '<span class="log-sense">'+senseEmoji(r.sense)+'</span>'+
+      '<button class="log-del" data-id="'+r.ts+'">削除</button>';
+    wrap.appendChild(item);
+  });
+  wrap.querySelectorAll('.log-del').forEach(b=>{
+    b.onclick=()=>{
+      if(!confirm('この記録を削除しますか？'))return;
+      const id=Number(b.dataset.id);
+      save(load().filter(r=>r.ts!==id));
+      render();
+      toast('削除しました');
+    };
+  });
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------- トースト ---------- */
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+/* ---------- 部位ラベル更新 ---------- */
+function updatePartLabels(){
+  document.getElementById('partLabel1').textContent=PART_NAME[currentPart];
+  document.getElementById('partLabel2').textContent=PART_NAME[currentPart];
+  document.getElementById('partLabel3').textContent=PART_NAME[currentPart];
+  document.getElementById('painAlert').textContent=PAIN_MSG[currentPart];
+}
+
+/* ---------- イベント ---------- */
+document.querySelector('.tabs').addEventListener('click',e=>{
+  const tab=e.target.closest('.tab');
+  if(!tab)return;
+  currentPart=tab.dataset.part;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  buildExerciseOptions();
+  updatePartLabels();
+  render();
+});
+
+document.getElementById('logFilter').addEventListener('click',e=>{
+  const b=e.target.closest('button');
+  if(!b)return;
+  logFilter=b.dataset.filter;
+  document.querySelectorAll('#logFilter button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderLog(load());
+});
+
+document.getElementById('exercise').addEventListener('change',e=>{
+  const custom=document.getElementById('exerciseCustom');
+  custom.style.display=e.target.value==='__custom__'?'block':'none';
+  showHint();
+});
+document.getElementById('exerciseCustom').addEventListener('input',showHint);
+
+document.getElementById('senseBtns').addEventListener('click',e=>{
+  const btn=e.target.closest('button');
+  if(!btn)return;
+  document.querySelectorAll('#senseBtns button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedSense=btn.dataset.sense;
+  document.getElementById('painAlert').classList.toggle('show',selectedSense==='pain');
+});
+
+document.getElementById('saveBtn').addEventListener('click',()=>{
+  const exercise=getExerciseName();
+  const reps=document.getElementById('reps').value.trim();
+  const load_=document.getElementById('load').value.trim()||'自重';
+  const sets=document.getElementById('sets').value.trim();
+  if(!exercise){toast('種目を入力してください');return;}
+  if(!reps){toast('回数を入力してください');return;}
+  if(!selectedSense){toast('体感を選んでください');return;}
+  const arr=load();
+  arr.push({ts:Date.now(),part:currentPart,exercise,reps:Number(reps),sets:sets?Number(sets):null,load:load_,sense:selectedSense});
+  save(arr);
+  document.getElementById('reps').value='';
+  document.getElementById('load').value='';
+  document.getElementById('sets').value='';
+  selectedSense=null;
+  document.querySelectorAll('#senseBtns button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('painAlert').classList.remove('show');
+  render();
+  toast('記録しました 💪');
+});
+
+/* ---------- バックアップ ---------- */
+document.getElementById('exportBtn').addEventListener('click',()=>{
+  const data=JSON.stringify(load(),null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const d=new Date();
+  a.href=url;
+  a.download='training-backup-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('バックアップを書き出しました');
+});
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const imported=JSON.parse(reader.result);
+      if(!Array.isArray(imported))throw new Error('形式が違います');
+      if(!confirm('現在の記録に上書きします。よろしいですか？'))return;
+      const fixed=imported.map(r=>({...r,part:r.part||'lower'}));
+      save(fixed);
+      render();
+      toast('読み込みました');
+    }catch(err){
+      toast('読み込めませんでした');
+    }
+  };
+  reader.readAsText(file);
+});
+
+/* ---------- 描画 ---------- */
+function render(){
+  const arr=load();
+  renderRecovery(arr);
+  renderWeek(arr);
+  renderLog(arr);
+  showHint();
+}
+
+/* ---------- 初期化 ---------- */
+buildExerciseOptions();
+updatePartLabels();
+render();
+</script>
+</body>
+</html>
