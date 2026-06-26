@@ -10,8 +10,8 @@ const blog = defineCollection({
 		z.object({
 			title: z.string(),
 			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
+			// Transform string to Date object（pubDate未設定の下書き記事を許容）
+			pubDate: z.coerce.date().optional(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.string().optional(),
 		}),

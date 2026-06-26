@@ -108,9 +108,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					</div>
 				)}
 				<div class="article-meta">
-					<span class="article-date">
-						<FormattedDate date={pubDate} />
-					</span>
+					{pubDate && (
+						<span class="article-date">
+							<FormattedDate date={pubDate} />
+						</span>
+					)}
 					{updatedDate && (
 						<span class="last-updated">
 							更新日: <FormattedDate date={updatedDate} />

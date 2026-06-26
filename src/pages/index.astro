@@ -7,7 +7,7 @@ import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	(a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0),
 ).slice(0, 6);
 ---
 
@@ -289,7 +289,9 @@ const posts = (await getCollection('blog')).sort(
 									}
 								</div>
 								<div class="post-body">
+									{post.data.pubDate && (
 									<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
+								)}
 									<h3 class="post-title">{post.data.title}</h3>
 									{post.data.description && (
 										<p class="post-desc">{post.data.description}</p>
